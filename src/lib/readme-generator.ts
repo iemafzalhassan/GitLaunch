@@ -63,7 +63,17 @@ export function generateReadmeMarkdown(state: FormState): string {
 
   const streakSection = showStreak ? `![GitHub Streak](https://streak-stats.demolab.com/?user=${githubUsername}&theme=${statsTheme})\n\n` : '';
 
-  const contributionSection = showContribution ? `## 📈 Contribution Graph\n\n![Contribution Graph](https://github-readme-activity-graph.vercel.app/graph?username=${githubUsername}&theme=${statsTheme === 'dracula' ? 'react-dark' : statsTheme})\n\n` : '';
+  const getContributionGraphTheme = () => {
+    const themeMap: { [key: string]: string } = {
+      dracula: 'react-dark',
+      github_dark: 'github-dark',
+      tokyonight: 'tokyo-night',
+      gruvbox: 'gruvbox'
+    };
+    return themeMap[statsTheme] || 'react-dark';
+  }
+
+  const contributionSection = showContribution ? `## 📈 Contribution Graph\n\n![Contribution Graph](https://github-readme-activity-graph.vercel.app/graph?username=${githubUsername}&theme=${getContributionGraphTheme()})\n\n` : '';
 
 
   return [

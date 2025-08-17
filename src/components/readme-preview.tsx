@@ -72,6 +72,16 @@ export function ReadmePreview({ formState }: ReadmePreviewProps) {
     );
   };
 
+  const getContributionGraphTheme = () => {
+    const themeMap: { [key: string]: string } = {
+      dracula: 'react-dark',
+      github_dark: 'github-dark',
+      tokyonight: 'tokyo-night',
+      gruvbox: 'gruvbox'
+    };
+    return themeMap[formState.statsTheme] || 'react-dark';
+  }
+
   return (
     <Card className="border-border/60">
       <CardHeader>
@@ -166,6 +176,24 @@ export function ReadmePreview({ formState }: ReadmePreviewProps) {
                   height={150}
                   unoptimized
                 />
+              </div>
+            )}
+
+            {formState.showContribution && (
+              <div>
+                <h2 className="text-2xl font-bold mb-2 text-center">📈 Contribution Graph</h2>
+                <div className="text-center">
+                  <Image 
+                    src={createImgUrl('https://github-readme-activity-graph.vercel.app/graph', { 
+                      username: formState.githubUsername,
+                      theme: getContributionGraphTheme(),
+                    })}
+                    alt="Contribution Graph"
+                    width={800}
+                    height={300}
+                    unoptimized
+                  />
+                </div>
               </div>
             )}
 
