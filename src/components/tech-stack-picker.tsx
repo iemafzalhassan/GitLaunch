@@ -41,7 +41,7 @@ export function TechStackPicker({ formState, setFormState }: TechStackPickerProp
         <CardTitle className="text-lg">Tech Stack</CardTitle>
       </CardHeader>
       <CardContent>
-        <Accordion type="multiple" collapsible className="w-full" defaultValue={['languages', 'frontend']}>
+        <Accordion type="multiple" className="w-full" defaultValue={['languages', 'frontend']}>
           {techCategories.map((category) => (
             <AccordionItem value={category.id} key={category.id}>
               <AccordionTrigger>{category.name}</AccordionTrigger>
