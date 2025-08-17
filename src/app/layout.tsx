@@ -16,6 +16,14 @@ const sourceCodePro = Source_Code_Pro({
 export const metadata: Metadata = {
   title: 'GitLaunch',
   description: 'Enhance your GitHub README with ease.',
+  icons: {
+    icon: [
+      { url: '/fevicon.png', type: 'image/png' },
+      { url: '/favicon.ico', type: 'image/x-icon' },
+    ],
+    shortcut: ['/fevicon.png'],
+    apple: [{ url: '/fevicon.png' }],
+  },
 };
 
 export default function RootLayout({
