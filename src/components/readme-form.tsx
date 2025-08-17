@@ -14,6 +14,9 @@ import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { Loader2, Sparkles, Linkedin, Twitter, Globe, Mail } from 'lucide-react';
 import { TechStackPicker } from './tech-stack-picker';
+import { ICON_SERVICES } from '@/lib/icon-services';
+import type { IconService } from '@/lib/icon-services';
+import { cn } from '@/lib/utils';
 
 interface ReadmeFormProps {
   formState: FormState;
@@ -102,10 +105,11 @@ export function ReadmeForm({ formState, setFormState }: ReadmeFormProps) {
               name="bio"
               value={formState.bio}
               onChange={handleChange}
-              placeholder="Tell us a little about yourself, your interests, and what you're working on."
+              placeholder="Tell us about yourself..."
+              rows={3}
             />
-          </div>
-        <div className="space-y-3">
+        </div>
+        <div className="space-y-2">
           <Label>Role</Label>
           <RadioGroup name="role" value={formState.role} onValueChange={handleRadioChange('role')} className="flex gap-4">
             <div className="flex items-center space-x-2">
@@ -117,8 +121,8 @@ export function ReadmeForm({ formState, setFormState }: ReadmeFormProps) {
               <Label htmlFor="professional" className="font-normal">Working Professional</Label>
             </div>
             <div className="flex items-center space-x-2">
-                <RadioGroupItem value="freelancer" id="freelancer" />
-                <Label htmlFor="freelancer" className="font-normal">Freelancer</Label>
+              <RadioGroupItem value="freelancer" id="freelancer" />
+              <Label htmlFor="freelancer" className="font-normal">Freelancer</Label>
             </div>
           </RadioGroup>
         </div>
@@ -146,13 +150,13 @@ export function ReadmeForm({ formState, setFormState }: ReadmeFormProps) {
         )}
         
         <TechStackPicker formState={formState} setFormState={setFormState} />
-
+        
         <Card className="bg-background/50">
           <CardHeader className="pb-4">
             <CardTitle className="text-lg">Customization</CardTitle>
           </CardHeader>
           <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
-             <div className="space-y-2">
+            <div className="space-y-2">
               <Label htmlFor="statsTheme">Stats Theme</Label>
                 <Select name="statsTheme" value={formState.statsTheme} onValueChange={handleSelectChange('statsTheme')}>
                   <SelectTrigger>
@@ -211,9 +215,64 @@ export function ReadmeForm({ formState, setFormState }: ReadmeFormProps) {
                   </SelectContent>
                 </Select>
             </div>
+            <div className="space-y-2">
+              <Label htmlFor="iconService">Icon Service</Label>
+              <div
+                role="radiogroup"
+                aria-label="Icon Service"
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-fr"
+              >
+                {Object.entries(ICON_SERVICES).map(([key, service]) => {
+                  const selected = formState.iconService === (key as IconService);
+                  return (
+                    <button
+                      key={key}
+                      role="radio"
+                      aria-checked={selected}
+                      type="button"
+                      title={service.name}
+                      onClick={() =>
+                        setFormState((prev) => ({ ...prev, iconService: key as IconService }))
+                      }
+                      className={cn(
+                        'group relative w-full h-full rounded-xl border bg-background/60 p-4 text-left shadow-sm transition-colors',
+                        selected
+                          ? 'border-accent ring-2 ring-accent/30'
+                          : 'border-border hover:border-accent/40'
+                      )}
+                    >
+                      <div className="flex items-center gap-2 pr-10">
+                        <span className="font-medium text-sm truncate">{service.name}</span>
+                      </div>
+                      <div className="text-xs text-muted-foreground mt-1 h-10 overflow-hidden text-ellipsis">
+                        {service.description}
+                      </div>
+                      <span
+                        className={cn(
+                          'absolute right-2 top-2 rounded px-1.5 py-0.5 text-[10px] bg-foreground/10',
+                          selected && 'bg-accent text-background'
+                        )}
+                      >
+                        {service.supportsThemes ? 'Themes' : 'SVG'}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+              <p className="text-xs text-muted-foreground">
+                {formState.iconService === 'skillicons'
+                  ? 'Dark/Light styles apply to SkillIcons.'
+                  : 'This service does not support themes; icons are rendered as-is.'}
+              </p>
+            </div>
              <div className="space-y-2">
               <Label htmlFor="techIconsStyle">Icon Style</Label>
-                <Select name="techIconsStyle" value={formState.techIconsStyle} onValueChange={handleSelectChange('techIconsStyle')}>
+                <Select
+                  name="techIconsStyle"
+                  value={formState.techIconsStyle}
+                  onValueChange={handleSelectChange('techIconsStyle')}
+                  disabled={formState.iconService !== 'skillicons'}
+                >
                   <SelectTrigger>
                     <SelectValue placeholder="Select an icon style" />
                   </SelectTrigger>

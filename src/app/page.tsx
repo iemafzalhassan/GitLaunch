@@ -25,6 +25,7 @@ export default function Home() {
     },
     statsTheme: 'dracula',
     techIconsStyle: 'dark',
+    iconService: 'skillicons',
     showTrophies: true,
     showStreak: true,
     showContribution: true,

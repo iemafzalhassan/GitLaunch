@@ -9,6 +9,8 @@ import { Copy, Download, Mail } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import Image from 'next/image';
 import { generateReadmeMarkdown } from '@/lib/readme-generator';
+import { generateIconUrl, generateMultipleIconUrls } from '@/lib/icon-services';
+import { isTechnologyAvailable } from '@/lib/tech-utils';
 
 
 interface ReadmePreviewProps {
@@ -102,8 +104,8 @@ export function ReadmePreview({ formState }: ReadmePreviewProps) {
           )}
         </div>
       </div>
-    )
-  }
+    );
+  };
 
   const getContributionGraphTheme = () => {
     const themeMap: { [key: string]: string } = {
@@ -158,7 +160,7 @@ export function ReadmePreview({ formState }: ReadmePreviewProps) {
       'whatsapp-dark': 'whatsapp-dark',
     };
     return themeMap[formState.statsTheme as keyof typeof themeMap] || 'github_dark';
-  }
+  };
 
   return (
     <Card className="border-border/60">
@@ -185,22 +187,44 @@ export function ReadmePreview({ formState }: ReadmePreviewProps) {
             <TabsTrigger value="markdown">Markdown</TabsTrigger>
           </TabsList>
           <TabsContent value="preview" className="mt-4 p-4 border rounded-md min-h-[400px] space-y-6 bg-background/50">
-            <h1 className="text-3xl font-bold">Hi 👋, I'm {formState.name}</h1>
-            <p className="text-lg italic text-muted-foreground">{formState.quote}</p>
-            
+            <div>
+              <h1 className="text-3xl font-bold">Hi 👋, I'm {formState.name}</h1>
+              <p className="text-lg italic text-muted-foreground">{formState.quote}</p>
+            </div>
+
             {renderAboutMe()}
             
             {renderSocials()}
 
             <div>
               <h2 className="text-2xl font-bold mb-2">🛠️ My Tech Stack</h2>
-              <Image 
-                src={`https://skillicons.dev/icons?i=${formState.techStack}&theme=${formState.techIconsStyle}`}
-                alt="Tech Stack"
-                width={800}
-                height={50}
-                unoptimized
-              />
+              {formState.iconService === 'skillicons' ? (
+                <Image
+                  src={generateIconUrl(
+                    formState.iconService,
+                    formState.techStack
+                      .split(',')
+                      .filter(Boolean),
+                    formState.techIconsStyle
+                  )}
+                  alt="Tech Stack"
+                  width={800}
+                  height={50}
+                  unoptimized
+                />
+              ) : (
+                <div className="flex flex-wrap gap-3 items-center">
+                  {generateMultipleIconUrls(
+                    formState.iconService,
+                    formState.techStack
+                      .split(',')
+                      .filter((t) => t && isTechnologyAvailable(t, formState.iconService)),
+                    formState.techIconsStyle
+                  ).map((url) => (
+                    <Image key={url} src={url} alt="Tech" width={40} height={40} unoptimized />
+                  ))}
+                </div>
+              )}
             </div>
 
             <h2 className="text-2xl font-bold mb-2">📊 My GitHub Stats</h2>

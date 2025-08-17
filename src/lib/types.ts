@@ -1,3 +1,5 @@
+import type { IconService } from './icon-services';
+
 export interface FormState {
   name: string;
   githubUsername: string;
@@ -65,6 +67,7 @@ export interface FormState {
     | 'aura-dark'
     | 'whatsapp-dark';
   techIconsStyle: 'dark' | 'light';
+  iconService: IconService;
   showTrophies: boolean;
   showStreak: boolean;
   showContribution: boolean;

@@ -1,4 +1,5 @@
 import type { FormState } from './types';
+import { generateIconUrl, generateMultipleIconUrls } from './icon-services';
 
 export function generateReadmeMarkdown(state: FormState): string {
   const {
@@ -14,6 +15,7 @@ export function generateReadmeMarkdown(state: FormState): string {
     socials,
     statsTheme,
     techIconsStyle,
+    iconService,
     showTrophies,
     showStreak,
     showContribution,
@@ -36,7 +38,16 @@ export function generateReadmeMarkdown(state: FormState): string {
   }
   aboutMe += `- 🚀 I'm passionate about building cool things with modern technologies.\n`;
 
-  const techSection = `## 🛠️ My Tech Stack\n\n![My Tech Stack](https://skillicons.dev/icons?i=${techStack}&theme=${techIconsStyle})\n\n`;
+  // Generate tech stack section based on icon service
+  const techNames = techStack.split(',').filter(Boolean);
+  let techSection = '## 🛠️ My Tech Stack\n\n';
+  if (iconService === 'skillicons') {
+    const iconUrl = generateIconUrl(iconService, techNames, techIconsStyle);
+    techSection += `![My Tech Stack](${iconUrl})\n\n`;
+  } else {
+    const urls = generateMultipleIconUrls(iconService, techNames, techIconsStyle);
+    techSection += urls.map((u) => `![Tech](${u})`).join(' ') + '\n\n';
+  }
 
   const socialSection = "## 📫 Let's Connect\n\n" + 
     Object.entries(socials)

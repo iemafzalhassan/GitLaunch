@@ -30,6 +30,22 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'streak-stats.demolab.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'github-readme-activity-graph.vercel.app',
+      },
+      {
+        protocol: 'https',
+        hostname: 'devicon.dev',
+      },
+      {
+        protocol: 'https',
+        hostname: 'techicons.dev',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.jsdelivr.net',
+      },
     ],
   },
 };
