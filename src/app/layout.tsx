@@ -24,8 +24,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body className={`${spaceGrotesk.variable} ${sourceCodePro.variable} font-body antialiased`} suppressHydrationWarning>
+    <html lang="en" className="dark" suppressHydrationWarning>
+      <body className={`${spaceGrotesk.variable} ${sourceCodePro.variable} font-body antialiased`}>
         {children}
         <Toaster />
       </body>
