@@ -70,9 +70,10 @@ export function generateReadmeMarkdown(state: FormState): string {
       dracula: 'react-dark',
       github_dark: 'github-dark',
       tokyonight: 'tokyo-night',
-      gruvbox: 'gruvbox'
+      gruvbox: 'gruvbox',
+      "solarized_dark": "solarized-dark"
     };
-    return themeMap[statsTheme] || 'react-dark';
+    return themeMap[statsTheme as keyof typeof themeMap] || 'react-dark';
   }
 
   const contributionSection = showContribution ? `## 📈 Contribution Graph\n\n![Contribution Graph](https://github-readme-activity-graph.vercel.app/graph?username=${githubUsername}&theme=${getContributionGraphTheme()})\n\n` : '';

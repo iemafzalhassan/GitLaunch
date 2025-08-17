@@ -110,9 +110,10 @@ export function ReadmePreview({ formState }: ReadmePreviewProps) {
       dracula: 'react-dark',
       github_dark: 'github-dark',
       tokyonight: 'tokyo-night',
-      gruvbox: 'gruvbox'
+      gruvbox: 'gruvbox',
+      solarized_dark: 'solarized-dark'
     };
-    return themeMap[formState.statsTheme] || 'react-dark';
+    return themeMap[formState.statsTheme as keyof typeof themeMap] || 'react-dark';
   }
 
   return (

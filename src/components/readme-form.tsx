@@ -160,9 +160,54 @@ export function ReadmeForm({ formState, setFormState }: ReadmeFormProps) {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="dracula">Dracula</SelectItem>
-                    <SelectItem value="github_dark">GitHub Dark</SelectItem>
-                    <SelectItem value="tokyonight">Tokyo Night</SelectItem>
                     <SelectItem value="gruvbox">Gruvbox</SelectItem>
+                    <SelectItem value="dark">Dark</SelectItem>
+                    <SelectItem value="radical">Radical</SelectItem>
+                    <SelectItem value="merko">Merko</SelectItem>
+                    <SelectItem value="tokyonight">Tokyo Night</SelectItem>
+                    <SelectItem value="onedark">One Dark</SelectItem>
+                    <SelectItem value="cobalt">Cobalt</SelectItem>
+                    <SelectItem value="synthwave">Synthwave</SelectItem>
+                    <SelectItem value="highcontrast">High Contrast</SelectItem>
+                    <SelectItem value="prussian">Prussian</SelectItem>
+                    <SelectItem value="monokai">Monokai</SelectItem>
+                    <SelectItem value="vue">Vue</SelectItem>
+                    <SelectItem value="vue-dark">Vue Dark</SelectItem>
+                    <SelectItem value="shadownomicon">Shadownomicon</SelectItem>
+                    <SelectItem value="graywhite">Gray White</SelectItem>
+                    <SelectItem value="vision-friendly-dark">Vision Friendly Dark</SelectItem>
+                    <SelectItem value="ayu-mirage">Ayu Mirage</SelectItem>
+                    <SelectItem value="midnight-purple">Midnight Purple</SelectItem>
+                    <SelectItem value="calm">Calm</SelectItem>
+                    <SelectItem value="flag-india">Flag India</SelectItem>
+                    <SelectItem value="omni">Omni</SelectItem>
+                    <SelectItem value="react">React</SelectItem>
+                    <SelectItem value="jolly">Jolly</SelectItem>
+                    <SelectItem value="maroongold">Maroon Gold</SelectItem>
+                    <SelectItem value="yeblu">Yeblu</SelectItem>
+                    <SelectItem value="blue-green">Blue Green</SelectItem>
+                    <SelectItem value="amethyst">Amethyst</SelectItem>
+                    <SelectItem value="buefy">Buefy</SelectItem>
+                    <SelectItem value="blue">Blue</SelectItem>
+                    <SelectItem value="slateorange">Slate Orange</SelectItem>
+                    <SelectItem value="kacho_ga">Kacho Ga</SelectItem>
+                    <SelectItem value="outrun">Outrun</SelectItem>
+                    <SelectItem value="chartreuse-dark">Chartreuse Dark</SelectItem>
+                    <SelectItem value="github_dark">GitHub Dark</SelectItem>
+                    <SelectItem value="github_light">GitHub Light</SelectItem>
+                    <SelectItem value="solarized-light">Solarized Light</SelectItem>
+                    <SelectItem value="solarized_dark">Solarized Dark</SelectItem>
+                    <SelectItem value="gotham">Gotham</SelectItem>
+                    <SelectItem value="material-palenight">Material Palenight</SelectItem>
+                    <SelectItem value="algolia">Algolia</SelectItem>
+                    <SelectItem value="great-gatsby">Great Gatsby</SelectItem>
+                    <SelectItem value="nord">Nord</SelectItem>
+                    <SelectItem value="catppuccin">Catppuccin</SelectItem>
+                    <SelectItem value="bear">Bear</SelectItem>
+                    <SelectItem value="swift">Swift</SelectItem>
+                    <SelectItem value="aura">Aura</SelectItem>
+                    <SelectItem value="aura-dark">Aura Dark</SelectItem>
+                    <SelectItem value="whatsapp-dark">WhatsApp Dark</SelectItem>
                   </SelectContent>
                 </Select>
             </div>
