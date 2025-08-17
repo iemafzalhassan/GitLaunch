@@ -5,7 +5,7 @@ import type { FormState } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Copy, Download, Linkedin, Twitter, Globe } from 'lucide-react';
+import { Copy, Download, Mail } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import Image from 'next/image';
 import { generateReadmeMarkdown } from '@/lib/readme-generator';
@@ -107,13 +107,43 @@ export function ReadmePreview({ formState }: ReadmePreviewProps) {
 
   const getContributionGraphTheme = () => {
     const themeMap: { [key: string]: string } = {
-      dracula: 'react-dark',
-      github_dark: 'github-dark',
-      tokyonight: 'tokyo-night',
+      dracula: 'dracula',
       gruvbox: 'gruvbox',
-      solarized_dark: 'solarized-dark'
+      dark: 'github-dark',
+      radical: 'radical',
+      merko: 'merko',
+      tokyonight: 'tokyo-night',
+      onedark: 'one_dark',
+      synthwave: 'synthwave',
+      highcontrast: 'high-contrast',
+      monokai: 'monokai',
+      vue: 'vue',
+      'vue-dark': 'vue-dark',
+      'vision-friendly-dark': 'vision-friendly-dark',
+      'ayu-mirage': 'ayu-mirage',
+      'midnight-purple': 'midnight-purple',
+      calm: 'calm',
+      react: 'react',
+      jolly: 'jolly',
+      'blue-green': 'blue-green',
+      buefy: 'buefy',
+      outrun: 'outrun',
+      'chartreuse-dark': 'chartreuse-dark',
+      'github_dark': 'github_dark',
+      'github_light': 'github-light',
+      'solarized-light': 'solarized_light',
+      'solarized_dark': 'solarized_dark',
+      gotham: 'gotham',
+      'material-palenight': 'material-palenight',
+      algolia: 'algolia',
+      'great-gatsby': 'great-gatsby',
+      nord: 'nord',
+      bear: 'bear',
+      swift: 'swift',
+      aura: 'aura',
+      'aura-dark': 'aura-dark',
     };
-    return themeMap[formState.statsTheme as keyof typeof themeMap] || 'react-dark';
+    return themeMap[formState.statsTheme as keyof typeof themeMap] || 'github-dark';
   }
 
   return (
