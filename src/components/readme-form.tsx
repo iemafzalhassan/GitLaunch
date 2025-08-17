@@ -13,6 +13,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { Loader2, Sparkles, Linkedin, Twitter, Globe } from 'lucide-react';
+import { TechStackPicker } from './tech-stack-picker';
 
 interface ReadmeFormProps {
   formState: FormState;
@@ -123,11 +124,8 @@ export function ReadmeForm({ formState, setFormState }: ReadmeFormProps) {
             <Input id="collegeName" name="collegeName" value={formState.collegeName} onChange={handleChange} placeholder="Your College" />
           </div>
         )}
-        <div className="space-y-2">
-          <Label htmlFor="techStack">Tech Stack</Label>
-          <Textarea id="techStack" name="techStack" value={formState.techStack} onChange={handleChange} placeholder="e.g. javascript,python,react" />
-          <p className="text-xs text-muted-foreground">Comma-separated list of tech. No spaces.</p>
-        </div>
+        
+        <TechStackPicker formState={formState} setFormState={setFormState} />
 
         <Card className="bg-background/50">
           <CardHeader className="pb-4">

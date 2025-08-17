@@ -14,7 +14,7 @@ export default function Home() {
     domain: 'Software Engineering',
     companyName: '',
     collegeName: '',
-    techStack: 'javascript,typescript,python,java,csharp,go,rust,ruby,php,react,angular,vue,nextjs,nodejs,express,mongodb,mysql,postgresql,docker,kubernetes,aws,azure,gcp,terraform,ansible,jenkins,git,github,gitlab,linux,bash,html,css,sass,tailwindcss,bootstrap,figma,xd,ps,ai',
+    techStack: 'react,nextjs,nodejs,tailwindcss,typescript',
     socials: {
       linkedin: '',
       twitter: '',
