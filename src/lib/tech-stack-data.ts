@@ -94,7 +94,7 @@ export const technologies = [
   { name: 'postman', category: 'apis' },
 
   // Mobile
-  { name: 'react', category: 'mobile' },
+  { name: 'react', category: 'mobile' }, // React Native uses 'react'
   { name: 'flutter', category: 'mobile' },
   { name: 'android', category: 'mobile' },
   { name: 'xcode', category: 'mobile' },
@@ -163,7 +163,6 @@ export const technologies = [
 
   // Testing
   { name: 'jest', category: 'testing' },
-  { name: 'mocha', category: 'testing' },
   { name: 'chai', category: 'testing' },
   { name: 'cypress', category: 'testing' },
   { name: 'selenium', category: 'testing' },
