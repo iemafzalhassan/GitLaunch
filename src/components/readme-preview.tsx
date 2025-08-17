@@ -5,7 +5,7 @@ import type { FormState } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Copy, Download } from 'lucide-react';
+import { Copy, Download, Linkedin, Twitter, Globe } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import Image from 'next/image';
 import { generateReadmeMarkdown } from '@/lib/readme-generator';
@@ -72,6 +72,34 @@ export function ReadmePreview({ formState }: ReadmePreviewProps) {
     );
   };
 
+  const renderSocials = () => {
+    const hasSocials = Object.values(formState.socials).some(s => s);
+    if (!hasSocials) return null;
+
+    return (
+      <div>
+        <h2 className="text-2xl font-bold mb-2">📫 Let's Connect</h2>
+        <div className="flex gap-2">
+          {formState.socials.linkedin && (
+             <a href={`https://linkedin.com/in/${formState.socials.linkedin}`} target="_blank" rel="noopener noreferrer">
+                <Image src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" width={90} height={28} unoptimized />
+             </a>
+          )}
+          {formState.socials.twitter && (
+            <a href={`https://twitter.com/${formState.socials.twitter}`} target="_blank" rel="noopener noreferrer">
+              <Image src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="Twitter" width={82} height={28} unoptimized />
+            </a>
+          )}
+          {formState.socials.website && (
+            <a href={formState.socials.website} target="_blank" rel="noopener noreferrer">
+              <Image src="https://img.shields.io/badge/Website-_?style=for-the-badge&logo=rss&logoColor=white" alt="Website" width={82} height={28} unoptimized />
+            </a>
+          )}
+        </div>
+      </div>
+    )
+  }
+
   const getContributionGraphTheme = () => {
     const themeMap: { [key: string]: string } = {
       dracula: 'react-dark',
@@ -111,6 +139,8 @@ export function ReadmePreview({ formState }: ReadmePreviewProps) {
             <p className="text-lg italic text-muted-foreground">{formState.quote}</p>
             
             {renderAboutMe()}
+            
+            {renderSocials()}
 
             <div>
               <h2 className="text-2xl font-bold mb-2">🛠️ My Tech Stack</h2>
