@@ -70,7 +70,7 @@ export function TechStackPicker({ formState, setFormState }: TechStackPickerProp
                           className="h-10 w-10"
                           unoptimized
                         />
-                        <span className="text-xs text-center truncate w-full">{tech.name}</span>
+                        <span className="text-xs text-center truncate w-full capitalize">{tech.name.replace(/js$/, 'JS')}</span>
                       </button>
                     ))}
                 </div>

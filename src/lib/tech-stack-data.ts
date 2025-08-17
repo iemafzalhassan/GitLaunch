@@ -2,11 +2,16 @@ export const techCategories = [
   { id: 'languages', name: 'Programming Languages' },
   { id: 'frontend', name: 'Frontend Development' },
   { id: 'backend', name: 'Backend Development' },
-  { id: 'database', name: 'Databases' },
-  { id: 'devops', name: 'DevOps & Cloud' },
-  { id: 'testing', name: 'Testing' },
-  { id: 'tools', name: 'Software & Tools' },
   { id: 'mobile', name: 'Mobile Development' },
+  { id: 'database', name: 'Databases & Caching' },
+  { id: 'devops', name: 'DevOps & Cloud' },
+  { id: 'cicd', name: 'CI/CD' },
+  { id: 'testing', name: 'Testing' },
+  { id: 'monitoring', name: 'Monitoring & Observability' },
+  { id: 'dataviz', name: 'Data Visualization' },
+  { id: 'apis', name: 'APIs & Communication' },
+  { id: 'cms', name: 'CMS' },
+  { id: 'tools', name: 'Software & Tools' },
 ];
 
 export const technologies = [
@@ -34,6 +39,9 @@ export const technologies = [
   { name: 'r', category: 'languages' },
   { name: 'bash', category: 'languages' },
   { name: 'powershell', category: 'languages' },
+  { name: 'groovy', category: 'languages' },
+  { name: 'erlang', category: 'languages' },
+  { name: 'ocaml', category: 'languages' },
 
   // Frontend
   { name: 'html', category: 'frontend' },
@@ -44,6 +52,7 @@ export const technologies = [
   { name: 'vue', category: 'frontend' },
   { name: 'svelte', category: 'frontend' },
   { name: 'nextjs', category: 'frontend' },
+  { name: 'nuxtjs', category: 'frontend' },
   { name: 'gatsby', category: 'frontend' },
   { name: 'remix', category: 'frontend' },
   { name: 'astro', category: 'frontend' },
@@ -55,6 +64,9 @@ export const technologies = [
   { name: 'vite', category: 'frontend' },
   { name: 'threejs', category: 'frontend' },
   { name: 'jquery', category: 'frontend' },
+  { name: 'ember', category: 'frontend' },
+  { name: 'alpinejs', category: 'frontend' },
+  { name: 'blazor', category: 'frontend' },
 
   // Backend
   { name: 'nodejs', category: 'backend' },
@@ -67,10 +79,27 @@ export const technologies = [
   { name: 'spring', category: 'backend' },
   { name: 'laravel', category: 'backend' },
   { name: 'phoenix', category: 'backend' },
-  { name: 'graphql', category: 'backend' },
-  { name: 'apollo', category: 'backend' },
   { name: 'nginx', category: 'backend' },
   { name: 'apache', category: 'backend' },
+  { name: 'kafka', category: 'backend' },
+  { name: 'rabbitmq', category: 'backend' },
+  { name: 'celery', category: 'backend' },
+  { name: 'symfony', category: 'backend' },
+
+  // APIs & Communication
+  { name: 'graphql', category: 'apis' },
+  { name: 'apollo', category: 'apis' },
+  { name: 'grpc', category: 'apis' },
+  { name: 'webrtc', category: 'apis' },
+  { name: 'postman', category: 'apis' },
+
+  // Mobile
+  { name: 'reactnative', category: 'mobile' },
+  { name: 'flutter', category: 'mobile' },
+  { name: 'androidstudio', category: 'mobile' },
+  { name: 'xcode', category: 'mobile' },
+  { name: 'ionic', category: 'mobile' },
+  { name: 'xamarin', category: 'mobile' },
 
   // Database
   { name: 'mongodb', category: 'database' },
@@ -84,10 +113,15 @@ export const technologies = [
   { name: 'firebase', category: 'database' },
   { name: 'supabase', category: 'database' },
   { name: 'prisma', category: 'database' },
+  { name: 'mariadb', category: 'database' },
+  { name: 'cockroachdb', category: 'database' },
+  { name: 'influxdb', category: 'database' },
+  { name: 'neo4j', category: 'database' },
 
   // DevOps & Cloud
   { name: 'docker', category: 'devops' },
   { name: 'kubernetes', category: 'devops' },
+  { name: 'openshift', category: 'devops' },
   { name: 'aws', category: 'devops' },
   { name: 'azure', category: 'devops' },
   { name: 'gcp', category: 'devops' },
@@ -97,13 +131,35 @@ export const technologies = [
   { name: 'digitalocean', category: 'devops' },
   { name: 'terraform', category: 'devops' },
   { name: 'ansible', category: 'devops' },
-  { name: 'jenkins', category: 'devops' },
-  { name: 'githubactions', category: 'devops' },
-  { name: 'gitlab', category: 'devops' },
-  { name: 'prometheus', category: 'devops' },
-  { name: 'grafana', category: 'devops' },
   { name: 'linux', category: 'devops' },
   { name: 'ubuntu', category: 'devops' },
+  { name: 'arch', category: 'devops' },
+  { name: 'vagrant', category: 'devops' },
+  { name: 'packer', category: 'devops' },
+  { name: 'pulumi', category: 'devops' },
+
+  // CI/CD
+  { name: 'jenkins', category: 'cicd' },
+  { name: 'githubactions', category: 'cicd' },
+  { name: 'gitlab', category: 'cicd' },
+  { name: 'circleci', category: 'cicd' },
+  { name: 'travisci', category: 'cicd' },
+  { name: 'argocd', category: 'cicd' },
+
+  // Monitoring & Observability
+  { name: 'prometheus', category: 'monitoring' },
+  { name: 'grafana', category: 'monitoring' },
+  { name: 'datadog', category: 'monitoring' },
+  { name: 'newrelic', category: 'monitoring' },
+  { name: 'splunk', category: 'monitoring' },
+  { name: 'elastic', category: 'monitoring' },
+  { name: 'logstash', category: 'monitoring' },
+  { name: 'kibana', category: 'monitoring' },
+
+  // Data Visualization
+  { name: 'd3', category: 'dataviz' },
+  { name: 'tableau', category: 'dataviz' },
+  { name: 'powerbi', category: 'dataviz' },
 
   // Testing
   { name: 'jest', category: 'testing' },
@@ -114,6 +170,7 @@ export const technologies = [
   { name: 'puppeteer', category: 'testing' },
   { name: 'storybook', category: 'testing' },
   { name: 'testinglibrary', category: 'testing' },
+  { name: 'junit', category: 'testing' },
 
   // Tools
   { name: 'git', category: 'tools' },
@@ -127,14 +184,15 @@ export const technologies = [
   { name: 'xd', category: 'tools' },
   { name: 'ps', category: 'tools' },
   { name: 'ai', category: 'tools' },
-  { name: 'postman', category: 'tools' },
   { name: 'yarn', category: 'tools' },
   { name: 'npm', category: 'tools' },
   { name: 'pnpm', category: 'tools' },
-
-  // Mobile
-  { name: 'reactnative', category: 'mobile' },
-  { name: 'flutter', category: 'mobile' },
-  { name: 'androidstudio', category: 'mobile' },
-  { name: 'xcode', category: 'mobile' },
+  { name: 'maven', category: 'tools' },
+  { name: 'gradle', category: 'tools' },
+  
+  // CMS
+  { name: 'wordpress', category: 'cms' },
+  { name: 'strapi', category: 'cms' },
+  { name: 'contentful', category: 'cms' },
+  { name: 'sanity', category: 'cms' },
 ];
