@@ -148,8 +148,8 @@ export function generateMultipleIconUrls(
 ): string[] {
   switch (service) {
     case 'skillicons':
-      // SkillIcons can handle multiple techs in one URL
-      return [generateIconUrl(service, techNames, theme)];
+      // Return per-tech SkillIcons URLs so each icon can be sized consistently in Markdown
+      return techNames.map((n) => generateIconUrl('skillicons', [n], theme));
     case 'devicon':
       return techNames.map((n) => {
         const { slug, variant } = mapToDevicon(n);

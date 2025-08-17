@@ -38,16 +38,18 @@ export function generateReadmeMarkdown(state: FormState): string {
   }
   aboutMe += `- 🚀 I'm passionate about building cool things with modern technologies.\n`;
 
-  // Generate tech stack section based on icon service
+  // Generate tech stack section with fixed-size icons for GitHub
   const techNames = techStack.split(',').filter(Boolean);
-  let techSection = '## 🛠️ My Tech Stack\n\n';
-  if (iconService === 'skillicons') {
-    const iconUrl = generateIconUrl(iconService, techNames, techIconsStyle);
-    techSection += `![My Tech Stack](${iconUrl})\n\n`;
-  } else {
-    const urls = generateMultipleIconUrls(iconService, techNames, techIconsStyle);
-    techSection += urls.map((u) => `![Tech](${u})`).join(' ') + '\n\n';
-  }
+  let techSection = '## 🛠️ My Tech Stack  \n\n';
+  techSection += `<p align="left">\n`;
+  const urls = iconService === 'skillicons'
+    ? techNames.map((n) => generateIconUrl(iconService, [n], techIconsStyle))
+    : generateMultipleIconUrls(iconService, techNames, techIconsStyle);
+
+  techSection += urls
+    .map((u, i) => `  <img src="${u}" alt="${techNames[i] || 'Tech'}" width="40" height="40"/>`)
+    .join(' ') + '\n';
+  techSection += `</p>\n\n`;
 
   const socialSection = "## 📫 Let's Connect\n\n" + 
     Object.entries(socials)
