@@ -1,10 +1,12 @@
 export interface FormState {
   name: string;
   githubUsername: string;
-  role: 'student' | 'professional';
+  role: 'student' | 'professional' | 'freelancer';
   domain: string;
   companyName: string;
+  companyUrl: string;
   collegeName: string;
+  bio: string;
   techStack: string;
   socials: {
     linkedin: string;

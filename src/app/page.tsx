@@ -13,7 +13,9 @@ export default function Home() {
     role: 'professional',
     domain: 'Software Engineering',
     companyName: '',
+    companyUrl: '',
     collegeName: '',
+    bio: 'I am a passionate developer who loves to build amazing things.',
     techStack: 'react,nextjs,nodejs,tailwindcss,typescript',
     socials: {
       linkedin: '',

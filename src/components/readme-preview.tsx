@@ -45,6 +45,32 @@ export function ReadmePreview({ formState }: ReadmePreviewProps) {
     });
     return url.toString();
   };
+  
+  const renderAboutMe = () => {
+    let roleInfo = '';
+    if (formState.role === 'student') {
+      roleInfo = `🎓 I'm a student at **${formState.collegeName || 'my university'}**, studying **${formState.domain || 'my field'}**.`;
+    } else if (formState.role === 'professional') {
+      let companyInfo = `**${formState.companyName || 'my company'}**`;
+      if (formState.companyUrl) {
+        companyInfo = `[${companyInfo}](${formState.companyUrl})`;
+      }
+      roleInfo = `💻 I'm a **${formState.domain || 'professional'}** at ${companyInfo}.`;
+    } else if (formState.role === 'freelancer') {
+      roleInfo = `🚀 I'm a freelancer specializing in **${formState.domain || 'my field'}**.`;
+    }
+
+    return (
+      <div>
+        <h2 className="text-2xl font-bold mb-2">👨‍💻 About Me</h2>
+        <p className="mb-2">{formState.bio}</p>
+        <ul className="list-disc list-inside space-y-1">
+          {roleInfo && <li>{roleInfo.replace(/\*\*/g, '').replace(/\[(.*?)\]\(.*?\)/g, '$1')}</li>}
+          <li>🚀 I'm passionate about building cool things with modern technologies.</li>
+        </ul>
+      </div>
+    );
+  };
 
   return (
     <Card className="border-border/60">
@@ -74,7 +100,10 @@ export function ReadmePreview({ formState }: ReadmePreviewProps) {
             <h1 className="text-3xl font-bold">Hi 👋, I'm {formState.name}</h1>
             <p className="text-lg italic text-muted-foreground">{formState.quote}</p>
             
+            {renderAboutMe()}
+
             <div>
+              <h2 className="text-2xl font-bold mb-2">🛠️ My Tech Stack</h2>
               <Image 
                 src={`https://skillicons.dev/icons?i=${formState.techStack}&theme=${formState.techIconsStyle}`}
                 alt="Tech Stack"
@@ -84,6 +113,7 @@ export function ReadmePreview({ formState }: ReadmePreviewProps) {
               />
             </div>
 
+            <h2 className="text-2xl font-bold mb-2">📊 My GitHub Stats</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Image 
                 src={createImgUrl('https://github-readme-stats.vercel.app/api', { 

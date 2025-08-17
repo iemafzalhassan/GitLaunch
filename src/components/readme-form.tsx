@@ -95,6 +95,16 @@ export function ReadmeForm({ formState, setFormState }: ReadmeFormProps) {
           <Label htmlFor="githubUsername">GitHub Username</Label>
           <Input id="githubUsername" name="githubUsername" value={formState.githubUsername} onChange={handleChange} placeholder="your-username" />
         </div>
+        <div className="space-y-2">
+            <Label htmlFor="bio">Bio</Label>
+            <Textarea
+              id="bio"
+              name="bio"
+              value={formState.bio}
+              onChange={handleChange}
+              placeholder="Tell us a little about yourself, your interests, and what you're working on."
+            />
+          </div>
         <div className="space-y-3">
           <Label>Role</Label>
           <RadioGroup name="role" value={formState.role} onValueChange={handleRadioChange('role')} className="flex gap-4">
@@ -106,6 +116,10 @@ export function ReadmeForm({ formState, setFormState }: ReadmeFormProps) {
               <RadioGroupItem value="professional" id="professional" />
               <Label htmlFor="professional" className="font-normal">Working Professional</Label>
             </div>
+            <div className="flex items-center space-x-2">
+                <RadioGroupItem value="freelancer" id="freelancer" />
+                <Label htmlFor="freelancer" className="font-normal">Freelancer</Label>
+            </div>
           </RadioGroup>
         </div>
         <div className="space-y-2">
@@ -113,10 +127,16 @@ export function ReadmeForm({ formState, setFormState }: ReadmeFormProps) {
           <Input id="domain" name="domain" value={formState.domain} onChange={handleChange} placeholder="e.g. Frontend Development, AI/ML" />
         </div>
         {formState.role === 'professional' && (
-          <div className="space-y-2">
-            <Label htmlFor="companyName">Company Name</Label>
-            <Input id="companyName" name="companyName" value={formState.companyName} onChange={handleChange} placeholder="Your Company" />
-          </div>
+          <>
+            <div className="space-y-2">
+              <Label htmlFor="companyName">Company Name</Label>
+              <Input id="companyName" name="companyName" value={formState.companyName} onChange={handleChange} placeholder="Your Company" />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="companyUrl">Company Website</Label>
+              <Input id="companyUrl" name="companyUrl" value={formState.companyUrl} onChange={handleChange} placeholder="https://your.company" />
+            </div>
+          </>
         )}
         {formState.role === 'student' && (
           <div className="space-y-2">

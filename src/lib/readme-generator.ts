@@ -7,7 +7,9 @@ export function generateReadmeMarkdown(state: FormState): string {
     role,
     domain,
     companyName,
+    companyUrl,
     collegeName,
+    bio,
     techStack,
     socials,
     statsTheme,
@@ -20,11 +22,17 @@ export function generateReadmeMarkdown(state: FormState): string {
 
   const intro = `# Hi 👋, I'm ${name}\n\n*${quote}*\n\n`;
 
-  let aboutMe = "## 👨‍💻 About Me\n\n";
+  let aboutMe = `## 👨‍💻 About Me\n\n${bio}\n\n`;
   if (role === 'student') {
     aboutMe += `- 🎓 I'm a student at **${collegeName || 'my university'}**, studying **${domain || 'my field'}**.\n`;
-  } else {
-    aboutMe += `- 💻 I'm a **${domain || 'professional'}** at **${companyName || 'my company'}**.\n`;
+  } else if (role === 'professional') {
+    let companyInfo = `**${companyName || 'my company'}**`;
+    if (companyUrl) {
+      companyInfo = `[${companyInfo}](${companyUrl})`;
+    }
+    aboutMe += `- 💻 I'm a **${domain || 'professional'}** at ${companyInfo}.\n`;
+  } else if (role === 'freelancer') {
+    aboutMe += `-  freelancer`;
   }
   aboutMe += `- 🚀 I'm passionate about building cool things with modern technologies.\n`;
 
