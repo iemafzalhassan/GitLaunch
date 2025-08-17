@@ -12,7 +12,7 @@ import { generateQuoteAction } from '@/app/actions';
 import { useToast } from '@/hooks/use-toast';
 import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
-import { Loader2, Sparkles, Linkedin, Twitter, Globe } from 'lucide-react';
+import { Loader2, Sparkles, Linkedin, Twitter, Globe, Mail } from 'lucide-react';
 import { TechStackPicker } from './tech-stack-picker';
 
 interface ReadmeFormProps {
@@ -209,6 +209,10 @@ export function ReadmeForm({ formState, setFormState }: ReadmeFormProps) {
             <div className="flex items-center gap-3">
               <Globe className="h-5 w-5 text-muted-foreground"/>
               <Input id="website" name="website" value={formState.socials.website} onChange={handleSocialChange} placeholder="https://your-website.com" />
+            </div>
+            <div className="flex items-center gap-3">
+              <Mail className="h-5 w-5 text-muted-foreground"/>
+              <Input id="email" name="email" type="email" value={formState.socials.email} onChange={handleSocialChange} placeholder="your.email@example.com" />
             </div>
           </CardContent>
         </Card>

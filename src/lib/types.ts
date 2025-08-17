@@ -12,6 +12,7 @@ export interface FormState {
     linkedin: string;
     twitter: string;
     website: string;
+    email: string;
   };
   statsTheme: 'dracula' | 'github_dark' | 'tokyonight' | 'gruvbox';
   techIconsStyle: 'dark' | 'light';

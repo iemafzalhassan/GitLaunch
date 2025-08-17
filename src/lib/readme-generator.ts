@@ -32,7 +32,7 @@ export function generateReadmeMarkdown(state: FormState): string {
     }
     aboutMe += `- 💻 I'm a **${domain || 'professional'}** at ${companyInfo}.\n`;
   } else if (role === 'freelancer') {
-    aboutMe += `-  freelancer`;
+    aboutMe += `- 🚀 I'm a freelancer specializing in **${domain || 'my field'}**.\n`;
   }
   aboutMe += `- 🚀 I'm passionate about building cool things with modern technologies.\n`;
 
@@ -49,6 +49,8 @@ export function generateReadmeMarkdown(state: FormState): string {
             return `[![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/${value})`;
           case 'website':
             return `[![Website](https://img.shields.io/badge/Website-_?style=for-the-badge&logo=rss&logoColor=white)](${value})`;
+          case 'email':
+            return `[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:${value})`;
           default:
             return '';
         }

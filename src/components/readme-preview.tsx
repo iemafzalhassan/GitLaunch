@@ -79,7 +79,7 @@ export function ReadmePreview({ formState }: ReadmePreviewProps) {
     return (
       <div>
         <h2 className="text-2xl font-bold mb-2">📫 Let's Connect</h2>
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
           {formState.socials.linkedin && (
              <a href={`https://linkedin.com/in/${formState.socials.linkedin}`} target="_blank" rel="noopener noreferrer">
                 <Image src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" width={90} height={28} unoptimized />
@@ -93,6 +93,11 @@ export function ReadmePreview({ formState }: ReadmePreviewProps) {
           {formState.socials.website && (
             <a href={formState.socials.website} target="_blank" rel="noopener noreferrer">
               <Image src="https://img.shields.io/badge/Website-_?style=for-the-badge&logo=rss&logoColor=white" alt="Website" width={82} height={28} unoptimized />
+            </a>
+          )}
+          {formState.socials.email && (
+            <a href={`mailto:${formState.socials.email}`} target="_blank" rel="noopener noreferrer">
+              <Image src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" width={75} height={28} unoptimized />
             </a>
           )}
         </div>

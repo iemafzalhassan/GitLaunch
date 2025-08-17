@@ -21,6 +21,7 @@ export default function Home() {
       linkedin: '',
       twitter: '',
       website: '',
+      email: '',
     },
     statsTheme: 'dracula',
     techIconsStyle: 'dark',
