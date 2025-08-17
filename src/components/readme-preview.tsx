@@ -109,18 +109,18 @@ export function ReadmePreview({ formState }: ReadmePreviewProps) {
     const themeMap: { [key: string]: string } = {
       dracula: 'dracula',
       gruvbox: 'gruvbox',
-      dark: 'github-dark',
+      dark: 'github_dark',
       radical: 'radical',
       merko: 'merko',
-      tokyonight: 'tokyo-night',
+      tokyonight: 'tokyo_night',
       onedark: 'one_dark',
       cobalt: 'cobalt',
       synthwave: 'synthwave',
-      highcontrast: 'high-contrast',
+      highcontrast: 'highcontrast',
       prussian: 'prussian',
       monokai: 'monokai',
       vue: 'vue',
-      'vue-dark': 'vue-dark',
+      'vue-dark': 'vue_dark',
       shadownomicon: 'shadownomicon',
       graywhite: 'graywhite',
       'vision-friendly-dark': 'vision-friendly-dark',
@@ -142,8 +142,8 @@ export function ReadmePreview({ formState }: ReadmePreviewProps) {
       outrun: 'outrun',
       'chartreuse-dark': 'chartreuse-dark',
       'github_dark': 'github_dark',
-      'github_light': 'github-light',
-      'solarized-light': 'solarized_light',
+      'github_light': 'github',
+      'solarized-light': 'solarized',
       'solarized_dark': 'solarized_dark',
       gotham: 'gotham',
       'material-palenight': 'material-palenight',
@@ -154,10 +154,10 @@ export function ReadmePreview({ formState }: ReadmePreviewProps) {
       bear: 'bear',
       swift: 'swift',
       aura: 'aura',
-      'aura-dark': 'aura-dark',
+      'aura-dark': 'aura_dark',
       'whatsapp-dark': 'whatsapp-dark',
     };
-    return themeMap[formState.statsTheme as keyof typeof themeMap] || 'github-dark';
+    return themeMap[formState.statsTheme as keyof typeof themeMap] || 'github_dark';
   }
 
   return (

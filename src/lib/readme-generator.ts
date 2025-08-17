@@ -69,18 +69,18 @@ export function generateReadmeMarkdown(state: FormState): string {
     const themeMap: { [key: string]: string } = {
       dracula: 'dracula',
       gruvbox: 'gruvbox',
-      dark: 'github-dark',
+      dark: 'github_dark',
       radical: 'radical',
       merko: 'merko',
-      tokyonight: 'tokyo-night',
+      tokyonight: 'tokyo_night',
       onedark: 'one_dark',
       cobalt: 'cobalt',
       synthwave: 'synthwave',
-      highcontrast: 'high-contrast',
+      highcontrast: 'highcontrast',
       prussian: 'prussian',
       monokai: 'monokai',
       vue: 'vue',
-      'vue-dark': 'vue-dark',
+      'vue-dark': 'vue_dark',
       shadownomicon: 'shadownomicon',
       graywhite: 'graywhite',
       'vision-friendly-dark': 'vision-friendly-dark',
@@ -102,8 +102,8 @@ export function generateReadmeMarkdown(state: FormState): string {
       outrun: 'outrun',
       'chartreuse-dark': 'chartreuse-dark',
       'github_dark': 'github_dark',
-      'github_light': 'github-light',
-      'solarized-light': 'solarized_light',
+      'github_light': 'github',
+      'solarized-light': 'solarized',
       'solarized_dark': 'solarized_dark',
       gotham: 'gotham',
       'material-palenight': 'material-palenight',
@@ -114,10 +114,10 @@ export function generateReadmeMarkdown(state: FormState): string {
       bear: 'bear',
       swift: 'swift',
       aura: 'aura',
-      'aura-dark': 'aura-dark',
+      'aura-dark': 'aura_dark',
       'whatsapp-dark': 'whatsapp-dark',
     };
-    return themeMap[statsTheme as keyof typeof themeMap] || 'github-dark';
+    return themeMap[statsTheme as keyof typeof themeMap] || 'github_dark';
   }
 
   const contributionSection = showContribution ? `## 📈 Contribution Graph\n\n![Contribution Graph](https://github-readme-activity-graph.vercel.app/graph?username=${githubUsername}&theme=${getContributionGraphTheme()})\n\n` : '';
