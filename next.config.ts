@@ -13,8 +13,22 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'placehold.co',
-        port: '',
-        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'github-readme-stats.vercel.app',
+      },
+      {
+        protocol: 'https',
+        hostname: 'skillicons.dev',
+      },
+      {
+        protocol: 'https',
+        hostname: 'github-profile-trophy.vercel.app',
+      },
+      {
+        protocol: 'https',
+        hostname: 'streak-stats.demolab.com',
       },
     ],
   },
