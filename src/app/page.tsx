@@ -1,9 +1,11 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import { Header } from '@/components/layout/header';
 import { ReadmeForm } from '@/components/readme-form';
 import { ReadmePreview } from '@/components/readme-preview';
+import { ErrorBoundary } from '@/components/error-boundary';
+import { FormSkeleton, PreviewSkeleton } from '@/components/loading-states';
 import type { FormState } from '@/lib/types';
 
 export default function Home() {
@@ -33,18 +35,28 @@ export default function Home() {
   });
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <Header />
-      <main className="flex-1 container mx-auto p-4 md:p-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="w-full">
-            <ReadmeForm formState={formState} setFormState={setFormState} />
+    <ErrorBoundary>
+      <div className="flex flex-col min-h-screen">
+        <Header />
+        <main className="flex-1 container mx-auto p-4 md:p-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="w-full">
+              <Suspense fallback={<FormSkeleton />}>
+                <ErrorBoundary>
+                  <ReadmeForm formState={formState} setFormState={setFormState} />
+                </ErrorBoundary>
+              </Suspense>
+            </div>
+            <div className="w-full lg:sticky lg:top-8 lg:self-start">
+              <Suspense fallback={<PreviewSkeleton />}>
+                <ErrorBoundary>
+                  <ReadmePreview formState={formState} />
+                </ErrorBoundary>
+              </Suspense>
+            </div>
           </div>
-          <div className="w-full lg:sticky lg:top-8 lg:self-start">
-             <ReadmePreview formState={formState} />
-          </div>
-        </div>
-      </main>
-    </div>
+        </main>
+      </div>
+    </ErrorBoundary>
   );
 }

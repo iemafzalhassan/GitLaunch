@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useCallback } from 'react';
 import type { FormState } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -23,16 +23,17 @@ interface ReadmeFormProps {
   setFormState: React.Dispatch<React.SetStateAction<FormState>>;
 }
 
-export function ReadmeForm({ formState, setFormState }: ReadmeFormProps) {
+export const ReadmeForm = React.memo(({ formState, setFormState }: ReadmeFormProps) => {
   const { toast } = useToast();
   const [isGenerating, setIsGenerating] = React.useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  // Memoize all callback functions
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormState((prev) => ({ ...prev, [name]: value }));
-  };
+  }, [setFormState]);
   
-  const handleSocialChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSocialChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormState(prev => ({
       ...prev,
@@ -41,21 +42,21 @@ export function ReadmeForm({ formState, setFormState }: ReadmeFormProps) {
         [name]: value
       }
     }));
-  };
+  }, [setFormState]);
 
-  const handleRadioChange = (name: string) => (value: string) => {
+  const handleRadioChange = useCallback((name: string) => (value: string) => {
     setFormState((prev) => ({ ...prev, [name]: value }));
-  };
+  }, [setFormState]);
   
-  const handleSwitchChange = (name: string) => (checked: boolean) => {
+  const handleSwitchChange = useCallback((name: string) => (checked: boolean) => {
     setFormState((prev) => ({ ...prev, [name]: checked }));
-  };
+  }, [setFormState]);
 
-  const handleSelectChange = (name: string) => (value: string) => {
+  const handleSelectChange = useCallback((name: string) => (value: string) => {
     setFormState((prev) => ({ ...prev, [name]: value }));
-  };
+  }, [setFormState]);
 
-  const handleGenerateQuote = async () => {
+  const handleGenerateQuote = useCallback(async () => {
     setIsGenerating(true);
     try {
       const result = await generateQuoteAction({
@@ -81,7 +82,12 @@ export function ReadmeForm({ formState, setFormState }: ReadmeFormProps) {
       });
     }
     setIsGenerating(false);
-  };
+  }, [formState.name, formState.role, formState.domain, formState.companyName, formState.collegeName, formState.techStack, setFormState, toast]);
+
+  // Memoize icon service selection handler
+  const handleIconServiceChange = useCallback((service: IconService) => {
+    setFormState((prev) => ({ ...prev, iconService: service }));
+  }, [setFormState]);
 
   return (
     <Card className="border-border/60">
@@ -231,9 +237,7 @@ export function ReadmeForm({ formState, setFormState }: ReadmeFormProps) {
                       aria-checked={selected}
                       type="button"
                       title={service.name}
-                      onClick={() =>
-                        setFormState((prev) => ({ ...prev, iconService: key as IconService }))
-                      }
+                      onClick={() => handleIconServiceChange(key as IconService)}
                       className={cn(
                         'group relative w-full h-full rounded-xl border bg-background/60 p-4 text-left shadow-sm transition-colors',
                         selected
@@ -316,7 +320,7 @@ export function ReadmeForm({ formState, setFormState }: ReadmeFormProps) {
             </div>
             <div className="flex items-center gap-3">
               <Mail className="h-5 w-5 text-muted-foreground"/>
-              <Input id="email" name="email" type="email" value={formState.socials.email} onChange={handleSocialChange} placeholder="your.email@example.com" />
+              <Input id="email" type="email" name="email" value={formState.socials.email} onChange={handleSocialChange} placeholder="your.email@example.com" />
             </div>
           </CardContent>
         </Card>
@@ -334,4 +338,6 @@ export function ReadmeForm({ formState, setFormState }: ReadmeFormProps) {
       </CardContent>
     </Card>
   );
-}
+});
+
+ReadmeForm.displayName = 'ReadmeForm';

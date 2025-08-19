@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo, useCallback, useState } from 'react';
 import type { FormState } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -11,22 +11,26 @@ import Image from 'next/image';
 import { generateReadmeMarkdown } from '@/lib/readme-generator';
 import { generateIconUrl, generateMultipleIconUrls } from '@/lib/icon-services';
 import { isTechnologyAvailable } from '@/lib/tech-utils';
-
+import { getContributionGraphTheme } from '@/lib/theme-utils';
 
 interface ReadmePreviewProps {
   formState: FormState;
 }
 
-export function ReadmePreview({ formState }: ReadmePreviewProps) {
+export const ReadmePreview = React.memo(({ formState }: ReadmePreviewProps) => {
   const { toast } = useToast();
-  const markdown = generateReadmeMarkdown(formState);
+  const [imageLoading, setImageLoading] = useState<Record<string, boolean>>({});
+  
+  // Memoize expensive markdown generation
+  const markdown = useMemo(() => generateReadmeMarkdown(formState), [formState]);
 
-  const handleCopy = () => {
+  // Memoize callback functions
+  const handleCopy = useCallback(() => {
     navigator.clipboard.writeText(markdown);
     toast({ title: 'Copied to clipboard!' });
-  };
+  }, [markdown, toast]);
 
-  const handleDownload = () => {
+  const handleDownload = useCallback(() => {
     const blob = new Blob([markdown], { type: 'text/markdown' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -36,9 +40,10 @@ export function ReadmePreview({ formState }: ReadmePreviewProps) {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-  };
+  }, [markdown]);
   
-  const createImgUrl = (path: string, params: Record<string, string | boolean | undefined>) => {
+  // Memoize URL creation function
+  const createImgUrl = useCallback((path: string, params: Record<string, string | boolean | undefined>) => {
     const url = new URL(path);
     Object.entries(params).forEach(([key, value]) => {
       if (value !== undefined) {
@@ -46,9 +51,20 @@ export function ReadmePreview({ formState }: ReadmePreviewProps) {
       }
     });
     return url.toString();
-  };
+  }, []);
+
+  // Memoize image loading handlers
+  const handleImageLoad = useCallback((url: string) => {
+    setImageLoading(prev => ({ ...prev, [url]: false }));
+  }, []);
+
+  const handleImageError = useCallback((url: string) => {
+    setImageLoading(prev => ({ ...prev, [url]: false }));
+    console.warn(`Failed to load image: ${url}`);
+  }, []);
   
-  const renderAboutMe = () => {
+  // Memoize about me rendering
+  const renderAboutMe = useCallback(() => {
     let roleInfo = '';
     if (formState.role === 'student') {
       roleInfo = `🎓 I'm a student at **${formState.collegeName || 'my university'}**, studying **${formState.domain || 'my field'}**.`;
@@ -72,9 +88,10 @@ export function ReadmePreview({ formState }: ReadmePreviewProps) {
         </ul>
       </div>
     );
-  };
+  }, [formState.role, formState.collegeName, formState.domain, formState.companyName, formState.companyUrl, formState.bio]);
 
-  const renderSocials = () => {
+  // Memoize socials rendering
+  const renderSocials = useCallback(() => {
     const hasSocials = Object.values(formState.socials).some(s => s);
     if (!hasSocials) return null;
 
@@ -84,83 +101,75 @@ export function ReadmePreview({ formState }: ReadmePreviewProps) {
         <div className="flex gap-2 flex-wrap">
           {formState.socials.linkedin && (
              <a href={`https://linkedin.com/in/${formState.socials.linkedin}`} target="_blank" rel="noopener noreferrer">
-                <Image src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" width={90} height={28} unoptimized />
+                <Image 
+                  src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" 
+                  alt="LinkedIn" 
+                  width={90} 
+                  height={28} 
+                  unoptimized 
+                  onLoad={() => handleImageLoad('linkedin')}
+                  onError={() => handleImageError('linkedin')}
+                />
              </a>
           )}
           {formState.socials.twitter && (
             <a href={`https://twitter.com/${formState.socials.twitter}`} target="_blank" rel="noopener noreferrer">
-              <Image src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="Twitter" width={82} height={28} unoptimized />
+              <Image 
+                src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" 
+                alt="Twitter" 
+                width={82} 
+                height={28} 
+                unoptimized 
+                onLoad={() => handleImageLoad('twitter')}
+                onError={() => handleImageError('twitter')}
+              />
             </a>
           )}
           {formState.socials.website && (
             <a href={formState.socials.website} target="_blank" rel="noopener noreferrer">
-              <Image src="https://img.shields.io/badge/Website-_?style=for-the-badge&logo=rss&logoColor=white" alt="Website" width={82} height={28} unoptimized />
+              <Image 
+                src="https://img.shields.io/badge/Website-_?style=for-the-badge&logo=rss&logoColor=white" 
+                alt="Website" 
+                width={82} 
+                height={28} 
+                unoptimized 
+                onLoad={() => handleImageLoad('website')}
+                onError={() => handleImageError('website')}
+              />
             </a>
           )}
           {formState.socials.email && (
             <a href={`mailto:${formState.socials.email}`} target="_blank" rel="noopener noreferrer">
-              <Image src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" width={75} height={28} unoptimized />
+              <Image 
+                src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" 
+                alt="Email" 
+                width={75} 
+                height={28} 
+                unoptimized 
+                onLoad={() => handleImageLoad('email')}
+                onError={() => handleImageError('email')}
+              />
             </a>
           )}
         </div>
       </div>
     );
-  };
+  }, [formState.socials, handleImageLoad, handleImageError]);
 
-  const getContributionGraphTheme = () => {
-    const themeMap: { [key: string]: string } = {
-      dracula: 'dracula',
-      gruvbox: 'gruvbox',
-      dark: 'github_dark',
-      radical: 'radical',
-      merko: 'merko',
-      tokyonight: 'tokyo_night',
-      onedark: 'one_dark',
-      cobalt: 'cobalt',
-      synthwave: 'synthwave',
-      highcontrast: 'highcontrast',
-      prussian: 'prussian',
-      monokai: 'monokai',
-      vue: 'vue',
-      'vue-dark': 'vue_dark',
-      shadownomicon: 'shadownomicon',
-      graywhite: 'graywhite',
-      'vision-friendly-dark': 'vision-friendly-dark',
-      'ayu-mirage': 'ayu-mirage',
-      'midnight-purple': 'midnight-purple',
-      calm: 'calm',
-      'flag-india': 'flag_india',
-      omni: 'omni',
-      react: 'react',
-      jolly: 'jolly',
-      maroongold: 'maroongold',
-      yeblu: 'yeblu',
-      'blue-green': 'blue-green',
-      amethyst: 'amethyst',
-      buefy: 'buefy',
-      blue: 'blueberry',
-      slateorange: 'slateorange',
-      kacho_ga: 'kacho_ga',
-      outrun: 'outrun',
-      'chartreuse-dark': 'chartreuse-dark',
-      'github_dark': 'github_dark',
-      'github_light': 'github',
-      'solarized-light': 'solarized',
-      'solarized_dark': 'solarized_dark',
-      gotham: 'gotham',
-      'material-palenight': 'material-palenight',
-      algolia: 'algolia',
-      'great-gatsby': 'great-gatsby',
-      nord: 'nord',
-      catppuccin: 'catppuccin_latte',
-      bear: 'bear',
-      swift: 'swift',
-      aura: 'aura',
-      'aura-dark': 'aura_dark',
-      'whatsapp-dark': 'whatsapp-dark',
-    };
-    return themeMap[formState.statsTheme as keyof typeof themeMap] || 'github_dark';
-  };
+  // Memoize contribution graph theme
+  const contributionTheme = useMemo(() => {
+    return getContributionGraphTheme(formState.statsTheme);
+  }, [formState.statsTheme]);
+
+  // Memoize tech stack URLs
+  const techStackUrls = useMemo(() => {
+    const techNames = formState.techStack.split(',').filter(Boolean);
+    if (formState.iconService === 'skillicons') {
+      return techNames.map((n) => generateIconUrl(formState.iconService, [n], formState.techIconsStyle));
+    } else {
+      return generateMultipleIconUrls(formState.iconService, techNames, formState.techIconsStyle);
+    }
+  }, [formState.techStack, formState.iconService, formState.techIconsStyle]);
 
   return (
     <Card className="border-border/60">
@@ -211,17 +220,22 @@ export function ReadmePreview({ formState }: ReadmePreviewProps) {
                   width={800}
                   height={50}
                   unoptimized
+                  onLoad={() => handleImageLoad('techstack')}
+                  onError={() => handleImageError('techstack')}
                 />
               ) : (
                 <div className="flex flex-wrap gap-3 items-center">
-                  {generateMultipleIconUrls(
-                    formState.iconService,
-                    formState.techStack
-                      .split(',')
-                      .filter((t) => t && isTechnologyAvailable(t, formState.iconService)),
-                    formState.techIconsStyle
-                  ).map((url) => (
-                    <Image key={url} src={url} alt="Tech" width={40} height={40} unoptimized />
+                  {techStackUrls.map((url, index) => (
+                    <Image 
+                      key={url} 
+                      src={url} 
+                      alt="Tech" 
+                      width={40} 
+                      height={40} 
+                      unoptimized 
+                      onLoad={() => handleImageLoad(`tech-${index}`)}
+                      onError={() => handleImageError(`tech-${index}`)}
+                    />
                   ))}
                 </div>
               )}
@@ -239,6 +253,8 @@ export function ReadmePreview({ formState }: ReadmePreviewProps) {
                 width={450}
                 height={150}
                 unoptimized
+                onLoad={() => handleImageLoad('github-stats')}
+                onError={() => handleImageError('github-stats')}
               />
               <Image 
                 src={createImgUrl('https://github-readme-stats.vercel.app/api/top-langs/', { 
@@ -250,6 +266,8 @@ export function ReadmePreview({ formState }: ReadmePreviewProps) {
                 width={450}
                 height={150}
                 unoptimized
+                onLoad={() => handleImageLoad('top-langs')}
+                onError={() => handleImageError('top-langs')}
               />
             </div>
 
@@ -264,6 +282,8 @@ export function ReadmePreview({ formState }: ReadmePreviewProps) {
                   width={800}
                   height={150}
                   unoptimized
+                  onLoad={() => handleImageLoad('trophies')}
+                  onError={() => handleImageError('trophies')}
                 />
               </div>
             )}
@@ -279,6 +299,8 @@ export function ReadmePreview({ formState }: ReadmePreviewProps) {
                   width={600}
                   height={150}
                   unoptimized
+                  onLoad={() => handleImageLoad('streak')}
+                  onError={() => handleImageError('streak')}
                 />
               </div>
             )}
@@ -290,12 +312,14 @@ export function ReadmePreview({ formState }: ReadmePreviewProps) {
                   <Image 
                     src={createImgUrl('https://github-readme-activity-graph.vercel.app/graph', { 
                       username: formState.githubUsername,
-                      theme: getContributionGraphTheme(),
+                      theme: contributionTheme,
                     })}
                     alt="Contribution Graph"
                     width={800}
                     height={300}
                     unoptimized
+                    onLoad={() => handleImageLoad('contribution')}
+                    onError={() => handleImageError('contribution')}
                   />
                 </div>
               </div>
@@ -311,4 +335,6 @@ export function ReadmePreview({ formState }: ReadmePreviewProps) {
       </CardContent>
     </Card>
   );
-}
+});
+
+ReadmePreview.displayName = 'ReadmePreview';

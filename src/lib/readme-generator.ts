@@ -1,5 +1,6 @@
 import type { FormState } from './types';
 import { generateIconUrl, generateMultipleIconUrls } from './icon-services';
+import { getContributionGraphTheme } from './theme-utils';
 
 export function generateReadmeMarkdown(state: FormState): string {
   const {
@@ -78,62 +79,7 @@ export function generateReadmeMarkdown(state: FormState): string {
 
   const streakSection = showStreak ? `![GitHub Streak](https://streak-stats.demolab.com/?user=${githubUsername}&theme=${statsTheme})\n\n` : '';
 
-  const getContributionGraphTheme = () => {
-    const themeMap: { [key: string]: string } = {
-      dracula: 'dracula',
-      gruvbox: 'gruvbox',
-      dark: 'github_dark',
-      radical: 'radical',
-      merko: 'merko',
-      tokyonight: 'tokyo_night',
-      onedark: 'one_dark',
-      cobalt: 'cobalt',
-      synthwave: 'synthwave',
-      highcontrast: 'highcontrast',
-      prussian: 'prussian',
-      monokai: 'monokai',
-      vue: 'vue',
-      'vue-dark': 'vue_dark',
-      shadownomicon: 'shadownomicon',
-      graywhite: 'graywhite',
-      'vision-friendly-dark': 'vision-friendly-dark',
-      'ayu-mirage': 'ayu-mirage',
-      'midnight-purple': 'midnight-purple',
-      calm: 'calm',
-      'flag-india': 'flag_india',
-      omni: 'omni',
-      react: 'react',
-      jolly: 'jolly',
-      maroongold: 'maroongold',
-      yeblu: 'yeblu',
-      'blue-green': 'blue-green',
-      amethyst: 'amethyst',
-      buefy: 'buefy',
-      blue: 'blueberry',
-      slateorange: 'slateorange',
-      kacho_ga: 'kacho_ga',
-      outrun: 'outrun',
-      'chartreuse-dark': 'chartreuse-dark',
-      'github_dark': 'github_dark',
-      'github_light': 'github',
-      'solarized-light': 'solarized',
-      'solarized_dark': 'solarized_dark',
-      gotham: 'gotham',
-      'material-palenight': 'material-palenight',
-      algolia: 'algolia',
-      'great-gatsby': 'great-gatsby',
-      nord: 'nord',
-      catppuccin: 'catppuccin_latte',
-      bear: 'bear',
-      swift: 'swift',
-      aura: 'aura',
-      'aura-dark': 'aura_dark',
-      'whatsapp-dark': 'whatsapp-dark',
-    };
-    return themeMap[statsTheme as keyof typeof themeMap] || 'github_dark';
-  }
-
-  const contributionSection = showContribution ? `## 📈 Contribution Graph\n\n![Contribution Graph](https://github-readme-activity-graph.vercel.app/graph?username=${githubUsername}&theme=${getContributionGraphTheme()})\n\n` : '';
+  const contributionSection = showContribution ? `## 📈 Contribution Graph\n\n![Contribution Graph](https://github-readme-activity-graph.vercel.app/graph?username=${githubUsername}&theme=${getContributionGraphTheme(statsTheme)})\n\n` : '';
 
 
   return [
