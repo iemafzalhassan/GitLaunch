@@ -1,5 +1,5 @@
 import type { FormState } from './types';
-import { generateIconUrl, generateMultipleIconUrls } from './icon-services';
+import { generateIconUrl, generateMultipleIconUrls, getBadgeDimensions } from './icon-services';
 import { getContributionGraphTheme } from './theme-utils';
 
 export function generateReadmeMarkdown(state: FormState): string {
@@ -39,18 +39,30 @@ export function generateReadmeMarkdown(state: FormState): string {
   }
   aboutMe += `- 🚀 I'm passionate about building cool things with modern technologies.\n`;
 
-  // Generate tech stack section with fixed-size icons for GitHub
+  // Generate tech stack section with professional sizing and spacing
   const techNames = techStack.split(',').filter(Boolean);
   let techSection = '## 🛠️ My Tech Stack  \n\n';
-  techSection += `<p align="left">\n`;
-  const urls = iconService === 'skillicons'
-    ? techNames.map((n) => generateIconUrl(iconService, [n], techIconsStyle))
-    : generateMultipleIconUrls(iconService, techNames, techIconsStyle);
-
-  techSection += urls
-    .map((u, i) => `  <img src="${u}" alt="${techNames[i] || 'Tech'}" width="40" height="40"/>`)
-    .join(' ') + '\n';
-  techSection += `</p>\n\n`;
+  
+  // Individual badges with proper spacing
+  const urls = generateMultipleIconUrls(iconService, techNames, techIconsStyle);
+  const dimensions = getBadgeDimensions(iconService, techIconsStyle);
+  
+  techSection += `<div align="left">\n`;
+  
+  if (iconService === 'shields') {
+    // Shields badges with proper spacing and alignment
+    const spacing = dimensions.height > 20 ? '&nbsp;&nbsp;' : '&nbsp;';
+    techSection += urls
+      .map((u, i) => `  <img src="${u}" alt="${techNames[i] || 'Tech'}" height="${dimensions.height}"/>`)
+      .join(spacing) + '\n';
+  } else {
+    // Devicon and TechIcons with standard spacing
+    techSection += urls
+      .map((u, i) => `  <img src="${u}" alt="${techNames[i] || 'Tech'}" width="${dimensions.width}" height="${dimensions.height}"/>`)
+      .join(' ') + '\n';
+  }
+  
+  techSection += `</div>\n\n`;
 
   const socialSection = "## 📫 Let's Connect\n\n" + 
     Object.entries(socials)

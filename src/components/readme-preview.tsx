@@ -9,9 +9,10 @@ import { Copy, Download, Mail } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import Image from 'next/image';
 import { generateReadmeMarkdown } from '@/lib/readme-generator';
-import { generateIconUrl, generateMultipleIconUrls } from '@/lib/icon-services';
+import { generateIconUrl, generateMultipleIconUrls, getBadgeDimensions } from '@/lib/icon-services';
 import { isTechnologyAvailable } from '@/lib/tech-utils';
 import { getContributionGraphTheme } from '@/lib/theme-utils';
+import { ReadmeTechDisplay } from '@/components/professional-tech-display';
 
 interface ReadmePreviewProps {
   formState: FormState;
@@ -205,41 +206,7 @@ export const ReadmePreview = React.memo(({ formState }: ReadmePreviewProps) => {
             
             {renderSocials()}
 
-            <div>
-              <h2 className="text-2xl font-bold mb-2">🛠️ My Tech Stack</h2>
-              {formState.iconService === 'skillicons' ? (
-                <Image
-                  src={generateIconUrl(
-                    formState.iconService,
-                    formState.techStack
-                      .split(',')
-                      .filter(Boolean),
-                    formState.techIconsStyle
-                  )}
-                  alt="Tech Stack"
-                  width={800}
-                  height={50}
-                  unoptimized
-                  onLoad={() => handleImageLoad('techstack')}
-                  onError={() => handleImageError('techstack')}
-                />
-              ) : (
-                <div className="flex flex-wrap gap-3 items-center">
-                  {techStackUrls.map((url, index) => (
-                    <Image 
-                      key={url} 
-                      src={url} 
-                      alt="Tech" 
-                      width={40} 
-                      height={40} 
-                      unoptimized 
-                      onLoad={() => handleImageLoad(`tech-${index}`)}
-                      onError={() => handleImageError(`tech-${index}`)}
-                    />
-                  ))}
-                </div>
-              )}
-            </div>
+            <ReadmeTechDisplay formState={formState} />
 
             <h2 className="text-2xl font-bold mb-2">📊 My GitHub Stats</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

@@ -66,7 +66,7 @@ export interface FormState {
     | 'aura'
     | 'aura-dark'
     | 'whatsapp-dark';
-  techIconsStyle: 'dark' | 'light';
+  techIconsStyle: 'flat' | 'flat-square' | 'plastic' | 'for-the-badge' | 'social';
   iconService: IconService;
   showTrophies: boolean;
   showStreak: boolean;

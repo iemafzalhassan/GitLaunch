@@ -2,8 +2,10 @@
 
 import React, { useState, Suspense } from 'react';
 import { Header } from '@/components/layout/header';
+import { Footer } from '@/components/layout/footer';
 import { ReadmeForm } from '@/components/readme-form';
 import { ReadmePreview } from '@/components/readme-preview';
+import { ProfessionalTechDisplay } from '@/components/professional-tech-display';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { FormSkeleton, PreviewSkeleton } from '@/components/loading-states';
 import type { FormState } from '@/lib/types';
@@ -26,8 +28,8 @@ export default function Home() {
       email: '',
     },
     statsTheme: 'dracula',
-    techIconsStyle: 'dark',
-    iconService: 'skillicons',
+    techIconsStyle: 'for-the-badge',
+    iconService: 'shields',
     showTrophies: true,
     showStreak: true,
     showContribution: true,
@@ -40,12 +42,20 @@ export default function Home() {
         <Header />
         <main className="flex-1 container mx-auto p-4 md:p-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div className="w-full">
+            <div className="w-full space-y-8">
               <Suspense fallback={<FormSkeleton />}>
                 <ErrorBoundary>
                   <ReadmeForm formState={formState} setFormState={setFormState} />
                 </ErrorBoundary>
               </Suspense>
+              
+              {formState.techStack && (
+                <Suspense fallback={<div className="animate-pulse bg-muted rounded-lg h-32" />}>
+                  <ErrorBoundary>
+                    <ProfessionalTechDisplay formState={formState} />
+                  </ErrorBoundary>
+                </Suspense>
+              )}
             </div>
             <div className="w-full lg:sticky lg:top-8 lg:self-start">
               <Suspense fallback={<PreviewSkeleton />}>
@@ -56,6 +66,7 @@ export default function Home() {
             </div>
           </div>
         </main>
+        <Footer />
       </div>
     </ErrorBoundary>
   );

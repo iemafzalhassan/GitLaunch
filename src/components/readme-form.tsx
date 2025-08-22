@@ -264,25 +264,27 @@ export const ReadmeForm = React.memo(({ formState, setFormState }: ReadmeFormPro
                 })}
               </div>
               <p className="text-xs text-muted-foreground">
-                {formState.iconService === 'skillicons'
-                  ? 'Dark/Light styles apply to SkillIcons.'
-                  : 'This service does not support themes; icons are rendered as-is.'}
+                {formState.iconService === 'shields' && 'Badge styles apply to Shields.io badges.'}
+                {formState.iconService !== 'shields' && 'This service does not support themes; icons are rendered as-is.'}
               </p>
             </div>
              <div className="space-y-2">
-              <Label htmlFor="techIconsStyle">Icon Style</Label>
+              <Label htmlFor="techIconsStyle">Badge Style</Label>
                 <Select
                   name="techIconsStyle"
                   value={formState.techIconsStyle}
                   onValueChange={handleSelectChange('techIconsStyle')}
-                  disabled={formState.iconService !== 'skillicons'}
+                  disabled={formState.iconService !== 'shields'}
                 >
                   <SelectTrigger>
-                    <SelectValue placeholder="Select an icon style" />
+                    <SelectValue placeholder="Select a badge style" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="dark">Dark</SelectItem>
-                    <SelectItem value="light">Light</SelectItem>
+                    <SelectItem value="flat">Flat</SelectItem>
+                    <SelectItem value="flat-square">Flat Square</SelectItem>
+                    <SelectItem value="plastic">Plastic</SelectItem>
+                    <SelectItem value="for-the-badge">For The Badge</SelectItem>
+                    <SelectItem value="social">Social</SelectItem>
                   </SelectContent>
                 </Select>
             </div>
