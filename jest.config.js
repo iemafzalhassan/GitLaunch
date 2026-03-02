@@ -17,7 +17,7 @@ const customJestConfig = {
   ],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
-    '^lucide-react$': 'identity-obj-proxy',
+    '^lucide-react$': require.resolve('lucide-react'),
   },
 }
 

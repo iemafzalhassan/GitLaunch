@@ -166,7 +166,7 @@ export const ReadmePreview = React.memo(({ formState }: ReadmePreviewProps) => {
   // Memoize tech stack URLs
   const techStackUrls = useMemo(() => {
     const techNames = formState.techStack.split(',').filter(Boolean);
-    if (formState.iconService === 'skillicons') {
+    if (formState.iconService === 'techicons') {
       return techNames.map((n) => generateIconUrl(formState.iconService, [n], formState.techIconsStyle));
     } else {
       return generateMultipleIconUrls(formState.iconService, techNames, formState.techIconsStyle);
