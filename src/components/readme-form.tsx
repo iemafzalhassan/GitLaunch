@@ -11,6 +11,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { generateQuoteAction } from '@/app/actions';
 import { useToast } from '@/hooks/use-toast';
 import { Switch } from '@/components/ui/switch';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { Loader2, Sparkles, Linkedin, Twitter, Globe, Mail } from 'lucide-react';
 import { TechStackPicker } from './tech-stack-picker';
@@ -330,10 +331,17 @@ export const ReadmeForm = React.memo(({ formState, setFormState }: ReadmeFormPro
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <Label htmlFor="quote">Quote</Label>
-            <Button variant="ghost" size="sm" onClick={handleGenerateQuote} disabled={isGenerating}>
-              {isGenerating ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Sparkles className="mr-2 h-4 w-4 text-accent" />}
-              Generate with AI
-            </Button>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant="ghost" size="sm" onClick={handleGenerateQuote} disabled={isGenerating}>
+                  {isGenerating ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Sparkles className="mr-2 h-4 w-4 text-accent" />}
+                  Generate with AI
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Generate a personalized quote based on your profile</p>
+              </TooltipContent>
+            </Tooltip>
           </div>
           <Textarea id="quote" name="quote" value={formState.quote} onChange={handleChange} placeholder="A cool quote for your profile" />
         </div>

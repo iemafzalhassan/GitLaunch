@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Copy, Download, Mail } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import Image from 'next/image';
 import { generateReadmeMarkdown } from '@/lib/readme-generator';
 import { generateIconUrl, generateMultipleIconUrls, getBadgeDimensions } from '@/lib/icon-services';
@@ -181,12 +182,26 @@ export const ReadmePreview = React.memo(({ formState }: ReadmePreviewProps) => {
             <CardDescription>See your README take shape.</CardDescription>
           </div>
           <div className="flex gap-2">
-            <Button variant="outline" size="icon" onClick={handleCopy} aria-label="Copy Markdown">
-              <Copy className="h-4 w-4" />
-            </Button>
-            <Button variant="outline" size="icon" onClick={handleDownload} aria-label="Download README.md">
-              <Download className="h-4 w-4" />
-            </Button>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant="outline" size="icon" onClick={handleCopy} aria-label="Copy Markdown">
+                  <Copy className="h-4 w-4" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Copy Markdown</p>
+              </TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant="outline" size="icon" onClick={handleDownload} aria-label="Download README.md">
+                  <Download className="h-4 w-4" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Download README.md</p>
+              </TooltipContent>
+            </Tooltip>
           </div>
         </div>
       </CardHeader>
