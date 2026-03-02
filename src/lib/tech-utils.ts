@@ -13,7 +13,7 @@ export interface Technology {
  * Ensures no duplicates when combining base and extended technologies
  */
 export function getAvailableTechnologies(iconService: IconService): Technology[] {
-  if (iconService === 'skillicons') {
+  if (iconService === 'techicons') {
     return technologies;
   }
   
